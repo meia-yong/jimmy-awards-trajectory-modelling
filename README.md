@@ -1,4 +1,4 @@
-# Modeling Broadway Trajectories: An Econometric Study of Elite Youth Talent
+# Modeling Broadway Trajectories: A Statistical Analysis of High School Musical Theatre Talent
 
 A quantitative study exploring whether winning the National High School Musical Theatre Awards (The Jimmy Awards) serves as a statistically significant accelerator for career success, or if selection filters at the finalist stage dominate long-term career outcomes.
 
