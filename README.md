@@ -135,11 +135,11 @@ For example, Renée Rapp (2018 Winner) transitioned from Broadway into major mus
 
 Using cumulative Broadway credits as an outcome measure introduces limitations.
 
-A performer who remains with a successful production for many years may receive the same credit count as someone whose production closed quickly, despite very different career outcomes.
+A performer who remains with a successful production for many years may receive the same credit count as someone whose production closed quickly, despite very different career outcomes. For example, Tony Moreno (2017 Winner) has worked continuously on The Book of Mormon on Broadway from 2022 to present. The dataset presents him as having one Broadway credit, failing to recognise sustained work at a high level.
 
 ### 4. Alternative Professional Markets
 
-The analysis intentionally focuses on Broadway as an institutional benchmark. This excludes important career pathways including Off-Broadway development, regional theatre, international productions, and national tours.
+The analysis intentionally focuses on Broadway as an institutional benchmark. This excludes important career pathways including Off-Broadway development, West End theatre, and national tours. For example, Anna Zavelson (2022 Finalist) has one Broadway credit, but has worked consistently, with her most prestigious credit arguably being Christine Daae in Phantom of the Opera on the West End, which has been excluded in this dataset.
 
 These exclusions create a trade-off: a narrower but more consistent measurement framework.
 
