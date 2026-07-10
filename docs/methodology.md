@@ -2,14 +2,14 @@
 
 ## Research Question
 
-Does Jimmy Award recognition correlate with differences in subsequent Broadway career trajectories?
+Does Jimmy Award recognition contain measurable information about subsequent Broadway career trajectories?
 
-This project examines whether Jimmy Award winners and finalists differ in two measurable outcomes:
+This project examines whether Jimmy Award winners and finalists differ in two measurable career outcomes:
 
 1. Time until first Broadway debut
 2. Accumulated Broadway credits after nomination
 
-The analysis is observational and evaluates associations rather than causal effects.
+The analysis is observational and evaluates associations rather than causal effects. Winning a Jimmy Award is not interpreted as directly causing career success; instead, the project investigates whether early-career recognition functions as a measurable signal associated with later Broadway outcomes.
 
 ---
 
@@ -19,78 +19,115 @@ The dataset contains every Jimmy Awards finalist from 2010 to 2026.
 
 Each performer is classified according to:
 
-- Jimmy Award outcome (Winner vs Finalist)
-- Nomination year
-- Broadway debut status
-- Year of Broadway debut
-- Total Broadway credits
+* Jimmy Award outcome (Winner vs Finalist)
+* Nomination year
+* Broadway debut status
+* Year of Broadway debut
+* Total Broadway credits
 
 Broadway career outcomes are measured using publicly available performer credits.
 
-The analysis cohort includes 113 performers.
+The final analysis cohort includes 113 performers.
+
+Because Jimmy Awards finalists represent a selected group of high-achieving young performers, the analysis compares differences within this cohort rather than attempting to estimate outcomes for the broader population of performers.
 
 ---
 
-## Survival Analysis
+# Survival Analysis
 
-### Research Question
+## Research Question
 
 Do Jimmy Award winners debut on Broadway faster than finalists?
 
-### Outcome
+## Outcome
 
-Time from first Jimmy Award nomination to first Broadway debut.
+The survival outcome is time from first Jimmy Award nomination to first Broadway debut.
 
-Performers who had not debuted by 2026 are treated as right-censored observations.
+Performers who had not made a Broadway debut by 2026 are treated as right-censored observations. This allows performers with different observation periods to be included without assuming that non-debuting performers will never enter Broadway.
 
-### Models
+## Models
 
-Two survival methods are used:
+Three survival methods are used:
 
-**Kaplan–Meier Estimation**
+### Kaplan–Meier Estimation
 
-Used to estimate the probability that a performer has not yet made a Broadway debut over time.
+Kaplan–Meier estimation is used to estimate the probability that a performer has not yet made a Broadway debut over time.
 
-**Log-Rank Test**
+### Log-Rank Test
 
-Used to compare survival curves between winners and finalists.
+The log-rank test compares estimated survival curves between Jimmy Award winners and finalists to assess whether the timing of Broadway entry differs between groups.
 
-**Cox Proportional Hazards Regression**
+### Cox Proportional Hazards Regression
 
-Used to estimate the relationship between Jimmy Award status and Broadway debut hazard while controlling for gender.
+A Cox proportional hazards model estimates the relationship between Jimmy Award status and the rate of Broadway debut while controlling for gender.
 
-The proportional hazards assumption is required for interpretation of Cox regression coefficients.
+The model specification is:
 
----
+```
+Broadway Debut Hazard ~ Jimmy Award Winner Status + Gender
+```
 
-## Count Regression
-
-### Research Question
-
-Do Jimmy Award winners accumulate more Broadway credits?
-
-### Outcome
-
-Total number of unique Broadway credits.
-
-### Model
-
-Poisson regression is used to model Broadway credit counts:
-
-Total Broadway Credits ~ Winner Status + Gender
-
-The winner coefficient is exponentiated to provide an interpretable multiplicative effect.
-
-Potential overdispersion is recognised as a limitation of the Poisson specification.
+The proportional hazards assumption is assessed using statistical diagnostics. The assumption was not violated for Jimmy Award winner status, although gender showed evidence of possible non-proportionality. Therefore, interpretation focuses primarily on the winner coefficient.
 
 ---
 
-## Limitations
+# Count Regression
+
+## Research Question
+
+Do Jimmy Award winners accumulate more Broadway credits after nomination?
+
+## Outcome
+
+The outcome variable is the total number of unique Broadway credits accumulated by each performer.
+
+Because Broadway credit accumulation is a count outcome with many performers having few or no credits, count regression models are used.
+
+## Model Selection
+
+A Poisson regression model was initially estimated:
+
+```
+Total Broadway Credits ~ Jimmy Award Winner Status + Gender
+```
+
+The winner coefficient was exponentiated to provide an interpretable multiplicative effect.
+
+However, Poisson regression assumes that the variance of the outcome is approximately equal to its mean. The dataset exhibited overdispersion:
+
+```
+Variance / Mean ratio = 1.68
+```
+
+indicating that Broadway credit counts were more dispersed than the Poisson model assumes.
+
+Therefore, a Negative Binomial regression was estimated as the preferred specification. Negative Binomial regression allows additional variation in count outcomes and is more appropriate for highly uneven career distributions.
+
+Model specification:
+
+```
+Total Broadway Credits ~ Jimmy Award Winner Status + Gender
+```
+
+The exponentiated winner coefficient is interpreted as the estimated multiplier in expected Broadway credit counts, holding gender constant.
+
+---
+
+# Model Interpretation
+
+All regression results are interpreted as associations rather than causal effects.
+
+For example, a higher estimated Broadway credit count among Jimmy Award winners does not imply that winning directly produces additional Broadway opportunities. Instead, it suggests that Jimmy Award recognition is associated with measurable differences in observed career trajectories.
+
+---
+
+# Limitations
 
 This analysis has several limitations:
 
-- Observational design prevents causal interpretation
-- Small sample size limits statistical power
-- Broadway credits represent only one dimension of career success
-- Important factors such as training, representation, geography, and prior experience are not included
-- Jimmy Award recognition may itself reflect existing industry advantages
+* The observational design prevents causal interpretation.
+* The sample size is limited, reducing statistical power and increasing uncertainty around estimates.
+* Jimmy Award finalists represent a selected group of high-achieving performers, limiting generalisation beyond this population.
+* Broadway credits represent only one dimension of career success and do not capture other outcomes such as regional theatre, touring, recording, television, film, or creative roles.
+* Important factors such as training background, representation, geography, industry connections, and prior professional experience are not included.
+* Jimmy Award recognition may itself reflect pre-existing advantages or opportunities rather than an independent driver of later outcomes.

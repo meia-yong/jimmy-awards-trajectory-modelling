@@ -97,5 +97,16 @@ def run_survival_analysis():
     cph = CoxPHFitter()
     cph.fit(regression_df, duration_col='Timeline_Years', event_col='Broadway_Debut')
 
+    # Cox proportional hazards assumption test
+    print("\n")
+    print("="*40)
+    print("PROPORTIONAL HAZARDS ASSUMPTION TEST")
+    print("="*40)
+
+    cph.check_assumptions(
+        regression_df,
+        p_value_threshold=0.05
+    )
+
     # Print the professional summary table
     cph.print_summary()
