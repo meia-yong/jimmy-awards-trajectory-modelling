@@ -4,7 +4,7 @@ A quantitative study examining whether recognition from the National High School
 
 ## Executive Summary
 
-This project evaluates the predictive relationship between an early-career artistic credential and subsequent professional outcomes using survival analysis and count-data modelling on a manually curated 16-year historical panel dataset ($N=113$).
+This project evaluates the predictive relationship between an early-career artistic credential and subsequent professional outcomes using survival analysis and count-data modelling on a manually curated 16-year historical cohort dataset ($N=113$).
 
 The central research question is:
 
@@ -20,6 +20,16 @@ Key findings:
 
 These findings should be interpreted as associations rather than causal effects. The analysis investigates whether award recognition is predictive of observed career outcomes, not whether winning independently causes career advancement.
 
+## Project Structure
+
+├── src/
+│   ├── main.py
+│   ├── survival_analysis.py
+│   └── longevity_analysis.py
+├── data/
+├── plots/
+└── docs/
+
 ---
 
 ## Research Questions
@@ -28,7 +38,7 @@ This project investigates three related questions:
 
 1. Does Jimmy Award recognition predict faster transition into Broadway employment?
 
-2. Conditional on entering Broadway, is recognition associated with greater accumulation of Broadway credits?
+2. Is recognition associated with greater accumulation of Broadway credits?
 
 3. How effectively can a single early-career credential function as a signal of future professional outcomes within a highly selective creative industry?
 
@@ -70,7 +80,7 @@ cph.fit(
 )
 ```
 
-The estimated hazard ratio suggests that winners enter Broadway at approximately twice the rate of finalists during the observation period (HR = 2.04).
+The estimated hazard ratio suggests that winners have an estimated 2.04x higher hazard of Broadway debut compared to finalists.
 
 The effect estimate is large, although statistical uncertainty remains due to the small cohort size. Additional observations would be required to determine whether this relationship remains robust across broader samples.
 
@@ -82,7 +92,7 @@ To examine longer-term Broadway outcomes, a Poisson Regression Model is applied 
 
 The model finds that Jimmy Award winners have higher observed Broadway credit volume relative to finalists ($p = 0.010$).
 
-The estimated coefficient corresponds to approximately a 2.31x multiplier in cumulative Broadway credits, suggesting that award recognition is associated with stronger long-term Broadway persistence within this dataset.
+The estimated coefficient corresponds to approximately a 2.31x multiplier in expected Broadway credit counts, suggesting that award recognition is associated with stronger long-term Broadway persistence within this dataset.
 
 ---
 
@@ -110,10 +120,10 @@ pip install -r requirements.txt
 Run the analysis pipeline:
 
 ```bash
-python main.py
+python3 src/main.py
 ```
 
-The pipeline generates the cleaned dataset, statistical models, and visual outputs used throughout the analysis.
+The pipeline loads the manually curated dataset, performs feature engineering, estimates statistical models, and generates visual outputs.
 
 ---
 
