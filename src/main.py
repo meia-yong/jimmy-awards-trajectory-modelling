@@ -1,9 +1,11 @@
 from survival_analysis import run_survival_analysis
-from poisson_model import run_poisson_model
+from longevity_analysis import run_longevity_analysis
+
 
 def main():
     run_survival_analysis()
-    run_poisson_model()
+    run_longevity_analysis()
+
 
 if __name__ == "__main__":
     main()
